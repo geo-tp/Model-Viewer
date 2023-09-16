@@ -7,7 +7,7 @@ app = Flask(__name__)
 images = None
 
 def load_data():
-    with urllib.request.urlopen("https://displayidbrowser.mindphlux.net/images.json") as url:
+    with urllib.request.urlopen("https://geo-tp.github.io/Model-Viewer/static/images.json") as url:
         return json.load(url)
 
 def check_maintenance():
@@ -57,8 +57,10 @@ def show_dir(dir):
 def get_used_by(displayid):
 
     for image in images:
-        if image['id'] == displayid:
+        if image['id'] == int(displayid):
             return json.dumps(image['used_by'])
+
+    return []
 
 @app.route("/update")
 def update():

@@ -18,17 +18,14 @@
                 {% if image != '&nbsp;' %}
                 <div>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#lightbox" data-bs-displayid="{{ image.id }}" data-bs-dir="{{ dir }}" data-bs-usedby="{{ image.used_by|tojson}}">
-                        <!-- <img width="200" height="200" src="https://displayidbrowser.mindphlux.net/images/{{ dir }}/{{ image.id }}.jpg"> -->
-                        <img width="250" height="250" src="https://wow.zamimg.com/modelviewer/classic/webthumbs/item/46/5166.webp">
-
-
+                        <img width="200" height="200" src="https://geo-tp.github.io/Model-Viewer/static/models/{{ dir }}/{{ image.id }}.webp">
                     </a>
                 </div>
                 <div class="mt-1">
                     <h4>
                         <span class="badge text-bg-muted" title="Display Id">{{ image.id }}</span>
-                        <img width="36" height="36" src="https://db.thealphaproject.eu/icons/INV_Sword_08.png" title="INV_Misc_LeatherScrap_02">
-                        <span class="badge text-bg-secondary" title="Item Size">0</span>
+                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/{{ image.icon }}.png" title="{{ image.icon }}">
+                        <span class="badge text-bg-secondary" title="Item Size">{{image.item_size}}</span>
                         {%if image.used == false %} 
                         <span class="badge text-bg-danger">Unused</span>{% else %} <span class="badge text-bg-success">Used by {{ image.used_by|length }}</span>{% endif %}
                     </h4>
@@ -72,7 +69,7 @@
             const _title = _modal.querySelector('#title')
             _image.src = "";
             const _leftcol = _modal.querySelector('#leftcol');
-            _image.src = `https://displayidbrowser.mindphlux.net/images/${_dir}/${_displayid}.png`;
+            _image.src = `https://geo-tp.github.io/Model-Viewer/static/models/${_dir}/${_displayid}.webp`;
             _title.innerHTML = "Display ID: " + _displayid;
 
             var _usedby = fetch('/api/usedby/' + _displayid)
