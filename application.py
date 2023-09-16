@@ -33,6 +33,7 @@ def show_dirs():
             if image['path'] not in dirs:
                 dirs.append(image['path'])
 
+        dirs.sort()
         return render_template('index.html', dirs=dirs)
     else:
         return render_template('maintenance.html')
@@ -48,7 +49,8 @@ def show_dir(dir):
                 dirs.append(image['path'])
             if image['path'] == dir:
                 images_in_dir.append(image)
-
+                
+        dirs.sort()
         return render_template('dir.html', images=images_in_dir, dir=dir, dirs=dirs)
     else:
         return render_template('maintenance.html')
