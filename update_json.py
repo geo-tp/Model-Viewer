@@ -242,6 +242,7 @@ if __name__ == "__main__":
         folder_path = os.path.join(media_path, folder)
         display_ids = os.listdir(folder_path)
         display_ids = [int(d.split(".")[0]) for d in display_ids]
+        display_ids.sort()
 
         for display_id in display_ids:
             items_obj = alpha_world.get_by_display_id(ItemTemplate, display_id)
