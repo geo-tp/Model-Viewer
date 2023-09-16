@@ -24,10 +24,15 @@
                 <div class="mt-1">
                     <h4>
                         <span class="badge text-bg-muted" title="Display Id">{{ image.id }}</span>
-                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/{{ image.icon }}.png" title="{{ image.icon }}">
+                        {% if image.icon == "" %}
+                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/INV_Misc_QuestionMark.png" title="No Icon">
+                        {% else %}
+                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/{{ image.icon  }}.png" title="{{ image.icon }}">
+                        {% endif %}
                         <span class="badge text-bg-secondary" title="Item Size">{{image.item_size}}</span>
                         {%if image.used == false %} 
-                        <span class="badge text-bg-danger">Unused</span>{% else %} <span class="badge text-bg-success">Used by {{ image.used_by|length }}</span>{% endif %}
+                        <span class="badge text-bg-danger">Unused</span>{% else %} <span class="badge text-bg-success">Used by {{ image.used_by|length }}</span>
+                        {% endif %}
                     </h4>
                 </div>
                 {% endif %}
