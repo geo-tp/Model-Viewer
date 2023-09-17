@@ -49,7 +49,7 @@ def show_dir(dir):
                 dirs.append(image['path'])
             if image['path'] == dir:
                 images_in_dir.append(image)
-                
+
         dirs.sort()
         return render_template('dir.html', images=images_in_dir, dir=dir, dirs=dirs)
     else:
@@ -67,9 +67,9 @@ def get_used_by(displayid):
 @app.route("/update")
 def update():
     images = load_data()
-    return redirect("http://www.displayidbrowser.com")
+    return redirect("/")
 
 if __name__ == '__main__':
     images = load_data()
     from waitress import serve
-    serve(app, host='0.0.0.0', port=8000)
+    serve(app, host='0.0.0.0', port=8091)
