@@ -237,6 +237,7 @@ if __name__ == "__main__":
     alpha_world.connect()
 
     results = []
+    limit_053 = 6440
 
     for folder in tqdm(media_folders):
         folder_path = os.path.join(media_path, folder)
@@ -246,7 +247,12 @@ if __name__ == "__main__":
 
         for display_id in display_ids:
             items_obj = alpha_world.get_by_display_id(ItemTemplate, display_id)
-            formatted_items = [{"entry": item.entry, "name": item.name} for item in items_obj]
+            constraint_items_obj = []
+            for obj in items_obj:
+                if obj.entry < limit_053:
+                    constraint_items_obj.append(obj)
+
+            formatted_items = [{"entry": item.entry, "name": item.name} for item in constraint_items_obj]
             display_obj = alpha_dbc.get_by_id(ItemDisplayInfo, display_id)
 
             json_display = {
