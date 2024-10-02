@@ -18,22 +18,11 @@
                 {% if image != '&nbsp;' %}
                 <div>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#lightbox" data-bs-displayid="{{ image.id }}" data-bs-dir="{{ dir }}" data-bs-usedby="{{ image.used_by|tojson}}">
-                        <img width="200" height="200" src="https://geo-tp.github.io/Model-Viewer/static/models/{{ dir }}/{{ image.id }}.webp">
+                        <img width="200" height="200" src="https://geo-tp.github.io/Model-Viewer/static/creatures/{{ dir }}/{{ image.id }}.jpg">
                     </a>
                 </div>
                 <div class="mt-1">
-                    <h4>
-                        <span class="badge text-bg-muted" title="Display Id">{{ image.id }}</span>
-                        {% if image.icon == "" %}
-                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/INV_Misc_QuestionMark.png" title="No Icon">
-                        {% else %}
-                        <img width="36" height="36" src="https://geo-tp.github.io/Model-Viewer/static/icons/{{ image.icon  }}.png" title="{{ image.icon }}">
-                        {% endif %}
-                        <span class="badge text-bg-secondary" title="Item Size">{{image.item_size}}</span>
-                        {%if image.used == false %} 
-                        <span class="badge text-bg-danger">Unused</span>{% else %} <span class="badge text-bg-success">Used by {{ image.used_by|length }}</span>
-                        {% endif %}
-                    </h4>
+                    {{ image.id }}{%if image.used == false %} <span class="badge text-bg-danger">Unused</span>{% else %} <span class="badge text-bg-{{ image.color }}">Used by {{ image.used_by|length }}</span>{% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -74,7 +63,7 @@
             const _title = _modal.querySelector('#title')
             _image.src = "";
             const _leftcol = _modal.querySelector('#leftcol');
-            _image.src = `https://geo-tp.github.io/Model-Viewer/static/models/${_dir}/${_displayid}.webp`;
+            _image.src = `https://geo-tp.github.io/Model-Viewer/static/creatures/${_dir}/${_displayid}.png`;
             _title.innerHTML = "Display ID: " + _displayid;
 
             var _usedby = fetch('/api/usedby/' + _displayid)
@@ -82,7 +71,12 @@
                 .then(data => {
                     _leftcol.innerHTML = '';
                     data.forEach(element => {
-                        _leftcol.innerHTML += `<div class="mb-2"><span style="font-size: 0.75rem;"><a target="_blank" href=https://db.thealphaproject.eu/?action=show_item&id=${element.entry}>${element.entry} ${element.name}</span></div>`;
+                        var inject = '';
+                        if (element.subname != '') {
+                            inject = ` &lt;${element.subname}&gt;</span>`;
+                        }
+                        var color = element.not_in_alpha ? 'warning' : 'success';
+                        _leftcol.innerHTML += `<div class="mb-2"><span style="font-size: 0.75rem;">${element.entry} ${element.name}${inject}</span> <span class="badge rounded-pill text-bg-${color}">Scale ${element.scale.toFixed(1)}x</span></div>`;
                     });
 
                     if (_leftcol.innerHTML == '') {
