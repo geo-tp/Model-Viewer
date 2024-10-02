@@ -92,8 +92,15 @@ def show_dir(dir):
 @app.route("/api/usedby/<string:displayid>")
 def get_used_by(displayid):
 
+    in_view = session.get('in_view', 'creatures')
+    images = []
+    if in_view == "creatures":
+        images = creatures_images
+    elif in_view == "items":
+        images = items_images
+
     for image in images:
-        if image['id'] == int(displayid):
+        if int(image['id']) == int(displayid):
             return json.dumps(image['used_by'])
 
     return []

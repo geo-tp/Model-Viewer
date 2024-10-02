@@ -76,7 +76,7 @@
                             inject = ` &lt;${element.subname}&gt;</span>`;
                         }
                         var color = element.not_in_alpha ? 'warning' : 'success';
-                        _leftcol.innerHTML += `<div class="mb-2"><span style="font-size: 0.75rem;">${element.entry} ${element.name}${inject}</span> <span class="badge rounded-pill text-bg-${color}">Scale ${element.scale.toFixed(1)}x</span></div>`;
+                        _leftcol.innerHTML += `<div class="mb-2"><span style="font-size: 0.75rem;"><a target="_blank" href=https://db.thealphaproject.eu/?action=show_creature&id=${element.entry}>${element.entry} ${element.name}${inject}</span> <span class="badge rounded-pill text-bg-${color}">Scale ${element.scale.toFixed(1)}x</span></div>`;
                     });
 
                     if (_leftcol.innerHTML == '') {
